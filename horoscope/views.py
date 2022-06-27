@@ -17,6 +17,42 @@ zodiac_dict = {
     'aquarius': 'Водолей - одиннадцатый знак зодиака, планеты Уран и Сатурн (с 21 января по 19 февраля).',
     'pisces': 'Рыбы - двенадцатый знак зодиака, планеты Юпитер (с 20 февраля по 20 марта).',
 }
+type_dic = {
+    'fire': ['aries', 'leo', 'sagittarius'],
+    'earth': ['taurus', 'virgo', 'capricorn'],
+    'air': ['gemini', 'libra', 'aquarius'],
+    'water': ['cancer', 'scorpio', 'pisces'],
+}
+
+
+def type_index(request):
+    types = list(type_dic)
+    li_types = ''
+    for typei in types:
+        li_types += f"<li>{typei.title()}</li>"
+    response = f"""
+    <ul>
+        {li_types}
+    </ul>
+    """
+    return HttpResponse(response)
+
+
+def get_element(request):
+
+
+def index(request):
+    zodiacs = list(zodiac_dict)
+    li_elements = ''
+    for sign in zodiacs:
+        redirect_path = reverse('horoscope-name', args=[sign])
+        li_elements += f"<li><a href='{redirect_path}'>{sign.title()}</a></li>"
+    response = f"""
+    <ol>
+        {li_elements}
+    </ol>
+    """
+    return HttpResponse(response)
 
 
 def get_info_about_sign_zodiac(request, sign_zodiac: str):
