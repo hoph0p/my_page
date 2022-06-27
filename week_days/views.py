@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 
 # Create your views here.
 week_dict = {
@@ -16,13 +16,14 @@ week_dict = {
 def get_info_by_week_day(request, week_name: str):
     description = week_dict.get(week_name)
     if description:
-        return HttpResponse(f'{description}')
+        return HttpResponse(description)
     else:
         return HttpResponseNotFound(f'Нет такого дня - {week_name}')
 
 
 def get_response_by_num(request, week_name: int):
-    if week_name > 0 and week_name < 8:
-        return HttpResponse(f'Сегодня {week_name} день недели')
-    else:
+    days = list(week_dict)
+    if week_name > len(days):
         return HttpResponseNotFound(f'Неверный номер дня - {week_name}')
+    name_day = days[week_name-1]
+    return HttpResponseRedirect(f'/todo_week/{name_day}')
