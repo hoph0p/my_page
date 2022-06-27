@@ -30,5 +30,5 @@ def get_info_about_sign_zodiac_by_number(request, sign_zodiac: int):
     zodiacs = list(zodiac_dict)
     if sign_zodiac > len(zodiacs):
         return HttpResponseNotFound(f'Неправильный порядковый номер знака зодиака - {sign_zodiac}')
-    name_zodiac = zodiacs[sign_zodiac]
+    name_zodiac = zodiacs[sign_zodiac-1]
     return HttpResponseRedirect(f'/horoscope/{name_zodiac}')
