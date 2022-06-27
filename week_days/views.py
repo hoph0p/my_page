@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
-
+from django.urls import reverse
 # Create your views here.
 week_dict = {
     'monday': 'Понедельник',
@@ -26,4 +26,5 @@ def get_response_by_num(request, week_name: int):
     if week_name > len(days):
         return HttpResponseNotFound(f'Неверный номер дня - {week_name}')
     name_day = days[week_name-1]
-    return HttpResponseRedirect(f'/todo_week/{name_day}')
+    redirect_url=reverse("todo", args=(name_day,))
+    return HttpResponseRedirect(redirect_url)
