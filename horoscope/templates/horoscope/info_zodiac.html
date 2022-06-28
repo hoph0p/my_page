@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Гороскоп для {{ sign }}</title>
+</head>
+<body>
+<h1>Приложение Гороскоп</h1>
+{% if description_zodiac is None %}
+    <h2>Нет такого знака {{ sign }}</h2>
+{% else %}
+    <h2>{{ description_zodiac }}</h2>
+{% endif %}
+
+</body>
+</html>
