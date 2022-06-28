@@ -29,7 +29,8 @@ def type_index(request):
     types = list(type_dic)
     li_types = ''
     for typei in types:
-        li_types += f"<li>{typei.title()}</li>"
+        redirect_path = reverse('horoscope-type', args=[typei])
+        li_types += f"<li><a href='{redirect_path}'>{typei.title()}</a></li>"
     response = f"""
     <ul>
         {li_types}
@@ -38,8 +39,21 @@ def type_index(request):
     return HttpResponse(response)
 
 
-def get_element(request):
-
+def get_element(request, element):
+    if element in type_dic:
+        type_zodiacs = list(type_dic.get(element,))
+        li_elements = ''
+        for sign in type_zodiacs:
+            redirect_path = reverse('horoscope-name', args=[sign])
+            li_elements += f"<li><a href='{redirect_path}'>{sign.title()}</a></li>"
+        response = f"""
+        <ol>
+            {li_elements}
+        </ol>
+        """
+        return HttpResponse(response)
+    else:
+        return HttpResponseNotFound(f"Нет такого элемента - {element}")
 
 def index(request):
     zodiacs = list(zodiac_dict)
