@@ -1,15 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Venu</title>
-</head>
-<body>
-<ul>
-    {% for zodiac in zodiacs %}
-        <li><a href="{% url 'horoscope-name' sign_zodiac=zodiac %}">{{ zodiac | title }}</a></li>
-    {% endfor %}
-</ul>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% load static %}
+
+{% block css_additional %}
+    <link rel="stylesheet" href="{% static 'horoscope/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'horoscope/css/info.css' %}">
+{% endblock %}
+
+{% block title %}
+    Меню
+{% endblock %}
+
+{% block content %}
+    {% include 'includes/navbar.html' only%}
+    <h2>Content from index.html</h2>
+    <ul>
+        {% for zodiac in zodiacs %}
+            <li><a href="{% url 'horoscope-name' sign_zodiac=zodiac %}">{{ zodiac | title }}</a></li>
+        {% endfor %}
+    </ul>
+    {% include 'includes/navbar.html' %}
+{% endblock %}
+
